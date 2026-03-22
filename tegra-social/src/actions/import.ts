@@ -13,8 +13,8 @@ const EmployeeRowSchema = z.object({
   name: z.string().min(1, "Name required"),
   email: z.string().email("Invalid email"),
   role: z.string().min(1, "Role required"),
-  country: z.enum(["india", "iceland"], {
-    error: "Must be 'india' or 'iceland'",
+  country: z.enum(["India", "Iceland"], {
+    error: "Must be 'India' or 'Iceland'",
   }),
 });
 

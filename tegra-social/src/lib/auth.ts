@@ -67,25 +67,34 @@ export const auth = betterAuth({
         }
       }
 
-      // (b) Validate invite codes on signup paths
-      if (email && path.includes("/sign-up")) {
-        const now = new Date();
-        const validInvite = await db
-          .select({ id: inviteCodes.id })
-          .from(inviteCodes)
-          .where(
-            and(
-              eq(inviteCodes.email, email),
-              isNull(inviteCodes.usedAt),
-              gt(inviteCodes.expiresAt, now)
-            )
-          )
+      // (b) Validate invite codes on magic-link sign-in (which also creates new users)
+      if (email && path.includes("/sign-in/magic-link")) {
+        // Check if user already exists — existing users don't need invite codes
+        const existingUser2 = await db
+          .select({ id: user.id })
+          .from(user)
+          .where(eq(user.email, email))
           .limit(1);
 
-        if (!validInvite[0]) {
-          throw new APIError("BAD_REQUEST", {
-            message: "No valid invite found",
-          });
+        if (!existingUser2[0]) {
+          const now = new Date();
+          const validInvite = await db
+            .select({ id: inviteCodes.id })
+            .from(inviteCodes)
+            .where(
+              and(
+                eq(inviteCodes.email, email),
+                isNull(inviteCodes.usedAt),
+                gt(inviteCodes.expiresAt, now)
+              )
+            )
+            .limit(1);
+
+          if (!validInvite[0]) {
+            throw new APIError("BAD_REQUEST", {
+              message: "No valid invite found",
+            });
+          }
         }
       }
     }),

@@ -28,7 +28,7 @@ type DemoEmployee = {
   name: string;
   email: string;
   role: string;
-  country: "india" | "iceland";
+  country: "India" | "Iceland";
   profile: {
     bio: string;
     interests: string[];
@@ -45,7 +45,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Arjun Sharma",
     email: "arjun.sharma@tegrasocial.demo",
     role: "Software Engineer",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Full-stack developer passionate about building scalable systems. Coffee aficionado and weekend trekker.",
       interests: ["System Design", "Open Source", "Hiking", "Chess"],
@@ -59,7 +59,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Priya Nair",
     email: "priya.nair@tegrasocial.demo",
     role: "Product Manager",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Product enthusiast bridging the gap between user needs and engineering realities. Former UX researcher.",
       interests: ["User Research", "Roadmapping", "Yoga", "Photography"],
@@ -73,7 +73,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Vikram Reddy",
     email: "vikram.reddy@tegrasocial.demo",
     role: "DevOps Engineer",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Infrastructure and reliability obsessive. I automate everything, including my morning routine.",
       interests: ["Kubernetes", "Terraform", "Cooking", "Gaming"],
@@ -87,7 +87,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Ananya Krishnamurthy",
     email: "ananya.k@tegrasocial.demo",
     role: "Designer",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Design systems architect and accessibility advocate. I believe good design is invisible.",
       interests: ["Typography", "Accessibility", "Kathak Dance", "Pottery"],
@@ -101,7 +101,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Rahul Mehta",
     email: "rahul.mehta@tegrasocial.demo",
     role: "QA Engineer",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Quality guardian who loves breaking things before users can. Firm believer that QA is everyone's job.",
       interests: ["Test Automation", "Security Testing", "Reading", "Football"],
@@ -115,7 +115,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Deepika Iyer",
     email: "deepika.iyer@tegrasocial.demo",
     role: "Software Engineer",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Frontend specialist who cares deeply about performance and smooth user experiences.",
       interests: ["React", "WebGL", "Carnatic Music", "Marathon Running"],
@@ -129,7 +129,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Suresh Patel",
     email: "suresh.patel@tegrasocial.demo",
     role: "Account Manager",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Client success advocate who turns every engagement into a long-term partnership.",
       interests: ["Relationship Building", "Cricket Strategy", "Entrepreneurship", "Cooking"],
@@ -143,7 +143,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Kavitha Rajendran",
     email: "kavitha.r@tegrasocial.demo",
     role: "Software Engineer",
-    country: "india",
+    country: "India",
     profile: {
       bio: "Backend systems engineer specialising in high-throughput data pipelines and distributed databases.",
       interests: ["Distributed Systems", "PostgreSQL", "Veena Music", "Cycling"],
@@ -158,7 +158,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Gunnar Sigurdsson",
     email: "gunnar.s@tegrasocial.demo",
     role: "Software Engineer",
-    country: "iceland",
+    country: "Iceland",
     profile: {
       bio: "Backend engineer who loves solving complex algorithmic challenges. Avid outdoorsman and Northern Lights chaser.",
       interests: ["Algorithms", "Go Language", "Aurora Hunting", "Hiking"],
@@ -172,7 +172,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Sigrid Jonsdottir",
     email: "sigrid.j@tegrasocial.demo",
     role: "Designer",
-    country: "iceland",
+    country: "Iceland",
     profile: {
       bio: "UX designer inspired by Iceland's landscapes. I bring natural minimalism into every product I touch.",
       interests: ["Nature Photography", "UX Research", "Knitting", "Hot Springs"],
@@ -186,7 +186,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Bjorn Einarsson",
     email: "bjorn.e@tegrasocial.demo",
     role: "Product Manager",
-    country: "iceland",
+    country: "Iceland",
     profile: {
       bio: "Product strategist who thinks in systems and ships fast. Former geologist who now excavates user problems instead of rocks.",
       interests: ["Geology", "Agile Strategy", "Handball", "Fermentation"],
@@ -200,7 +200,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Astrid Magnusdottir",
     email: "astrid.m@tegrasocial.demo",
     role: "QA Engineer",
-    country: "iceland",
+    country: "Iceland",
     profile: {
       bio: "Detail-obsessed QA who approaches testing like a scientific experiment. I hypothesise, test, and document everything.",
       interests: ["Exploratory Testing", "Automation", "Poetry", "Swimming"],
@@ -214,7 +214,7 @@ const demoEmployees: DemoEmployee[] = [
     name: "Olafur Kristjansson",
     email: "olafur.k@tegrasocial.demo",
     role: "DevOps Engineer",
-    country: "iceland",
+    country: "Iceland",
     profile: {
       bio: "Cloud infrastructure expert who loves clean pipelines and reliable deployments. Mushroom forager on weekends.",
       interests: ["Cloud Architecture", "CI/CD", "Mushroom Foraging", "Icelandic Sagas"],
@@ -255,8 +255,8 @@ async function main() {
   console.log(`Created admin: ${ADMIN_EMAIL}`);
 
   // ── 3. Insert demo employees ───────────────────────────────────────────
-  const indiaEmployees = demoEmployees.filter((e) => e.country === "india");
-  const icelandEmployees = demoEmployees.filter((e) => e.country === "iceland");
+  const indiaEmployees = demoEmployees.filter((e) => e.country === "India");
+  const icelandEmployees = demoEmployees.filter((e) => e.country === "Iceland");
 
   for (const emp of demoEmployees) {
     await db.insert(user).values({
