@@ -254,6 +254,21 @@ async function main() {
   });
   console.log(`Created admin: ${ADMIN_EMAIL}`);
 
+  // ── 2b. Insert real admin (Jayasuriya) ────────────────────────────────
+  await db.insert(user).values({
+    id: "real-admin-001",
+    name: "Jayasuriya Venkatesan",
+    email: "jayasuriya.venkatesan@roanuz.com",
+    emailVerified: true,
+    isAdmin: true,
+    role: "Software Engineer",
+    country: "India",
+    status: "active",
+    createdAt: now,
+    updatedAt: now,
+  });
+  console.log("Created admin: jayasuriya.venkatesan@roanuz.com");
+
   // ── 3. Insert demo employees ───────────────────────────────────────────
   const indiaEmployees = demoEmployees.filter((e) => e.country === "India");
   const icelandEmployees = demoEmployees.filter((e) => e.country === "Iceland");
