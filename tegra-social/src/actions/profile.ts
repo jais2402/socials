@@ -1,14 +1,22 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { requireSession } from "@/lib/dal";
 import { db } from "@/lib/db";
 import { profiles, user } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
+// Demo mode: use first admin user as the current user
+async function getDemoUserId() {
+  const rows = await db
+    .select({ id: user.id })
+    .from(user)
+    .where(eq(user.isAdmin, true))
+    .limit(1);
+  return rows[0]?.id ?? "demo-admin-001";
+}
+
 export async function updateProfile(formData: FormData) {
-  const session = await requireSession();
-  const userId = session.user.id;
+  const userId = await getDemoUserId();
 
   // Fields on the user table
   const name = (formData.get("name") as string | null)?.trim() ?? "";
@@ -37,15 +45,6 @@ export async function updateProfile(formData: FormData) {
       .update(user)
       .set({
         name,
-        role: role ?? undefined,
-        country: country ?? undefined,
-        updatedAt: new Date(),
-      })
-      .where(eq(user.id, userId));
-  } else if (role !== null || country !== null) {
-    await db
-      .update(user)
-      .set({
         role: role ?? undefined,
         country: country ?? undefined,
         updatedAt: new Date(),

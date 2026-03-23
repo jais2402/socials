@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { requireSession } from "@/lib/dal";
 import { db } from "@/lib/db";
 import { user, profiles } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -10,8 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
-  const session = await requireSession();
-
+  // Demo mode: show first admin user's profile
   const rows = await db
     .select({
       id: user.id,
@@ -29,7 +27,7 @@ export default async function ProfilePage() {
     })
     .from(user)
     .leftJoin(profiles, eq(user.id, profiles.userId))
-    .where(eq(user.id, session.user.id))
+    .where(eq(user.isAdmin, true))
     .limit(1);
 
   const profileData = rows[0] ?? null;

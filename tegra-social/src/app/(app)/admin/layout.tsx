@@ -1,4 +1,3 @@
-import { requireAdmin } from "@/lib/dal";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -6,14 +5,11 @@ export const metadata: Metadata = {
   title: "Admin — Tegra Social",
 };
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Redirects non-admins to /
-  await requireAdmin();
-
   return (
     <div className="p-8">
       <div className="max-w-5xl">
@@ -21,7 +17,6 @@ export default async function AdminLayout({
           Admin
         </h1>
 
-        {/* Admin nav tabs */}
         <nav className="flex gap-1 mb-6 border-b border-zinc-200 dark:border-zinc-800">
           <Link
             href="/admin/users"

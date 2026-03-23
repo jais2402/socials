@@ -1,35 +1,22 @@
 "use server";
 
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
-import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { user, inviteCodes } from "@/lib/db/schema";
-import { requireAdmin } from "@/lib/dal";
 
 // ─── sendInvite ──────────────────────────────────────────────────────────────
 
 export async function sendInvite(email: string, name: string) {
   try {
-    const session = await requireAdmin();
-
     // Create an invite code record (48h expiry)
     const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000);
     await db.insert(inviteCodes).values({
       email,
       code: crypto.randomUUID().replace(/-/g, "").slice(0, 32),
       expiresAt,
-      createdBy: session.user.id,
     });
 
-    // Trigger the magic link email (logs to console in dev)
-    await auth.api.signInMagicLink({
-      body: { email, callbackURL: "/profile/setup" },
-      headers: await headers(),
-    });
-
-    return { success: true, message: "Invite sent" };
+    return { success: true, message: "Invite created" };
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Failed to send invite";
@@ -41,7 +28,6 @@ export async function sendInvite(email: string, name: string) {
 
 export async function deactivateUser(userId: string) {
   try {
-    await requireAdmin();
     await db
       .update(user)
       .set({ status: "deactivated" })
@@ -58,7 +44,6 @@ export async function deactivateUser(userId: string) {
 
 export async function reactivateUser(userId: string) {
   try {
-    await requireAdmin();
     await db
       .update(user)
       .set({ status: "active" })
@@ -71,15 +56,8 @@ export async function reactivateUser(userId: string) {
   }
 }
 
-// ─── logoutAction / signOutAction ─────────────────────────────────────────────
+// ─── signOutAction (no-op in demo mode) ──────────────────────────────────────
 
-export async function logoutAction() {
-  await auth.api.signOut({ headers: await headers() });
-  redirect("/login");
-}
-
-// Alias used by the sidebar form
 export async function signOutAction() {
-  await auth.api.signOut({ headers: await headers() });
-  redirect("/login");
+  // No-op in demo mode
 }

@@ -1,21 +1,15 @@
-import { requireSession } from "@/lib/dal";
-import { signOutAction } from "@/actions/auth";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-export default async function AppLayout({
+export default function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await requireSession();
-  const user = session.user;
-
   const navLinks = [
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/profile", label: "Profile" },
     { href: "/directory", label: "Directory" },
+    { href: "/admin/users", label: "Admin" },
   ];
 
   return (
@@ -40,32 +34,14 @@ export default async function AppLayout({
               {link.label}
             </Link>
           ))}
-          {user.isAdmin && (
-            <Link
-              href="/admin/users"
-              className="block rounded-md px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-colors"
-            >
-              Admin
-            </Link>
-          )}
         </nav>
 
         <Separator />
 
-        <div className="px-3 py-4 space-y-2">
-          <p className="px-2 text-xs text-zinc-500 dark:text-zinc-400 truncate">
-            {user.email}
+        <div className="px-3 py-4">
+          <p className="px-2 text-xs text-zinc-500 dark:text-zinc-400">
+            Demo Mode
           </p>
-          <form action={signOutAction}>
-            <Button
-              type="submit"
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start text-zinc-600 dark:text-zinc-400"
-            >
-              Sign out
-            </Button>
-          </form>
         </div>
       </aside>
 

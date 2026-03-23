@@ -4,7 +4,6 @@ import Papa from "papaparse";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { user, inviteCodes } from "@/lib/db/schema";
-import { requireAdmin } from "@/lib/dal";
 import { nanoid } from "nanoid";
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
@@ -31,8 +30,6 @@ export type ImportResult = {
 export async function importEmployeesFromCSV(
   formData: FormData,
 ): Promise<ImportResult> {
-  await requireAdmin();
-
   const file = formData.get("csv") as File | null;
   if (!file || file.size === 0) {
     return {
