@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
-const PUBLIC_ROUTES = ["/login", "/verify", "/api/auth", "/api/uploadthing", "/api/dev-setup"];
+const PUBLIC_ROUTES = ["/login", "/verify", "/api/auth", "/api/uploadthing"];
 
 function isPublicRoute(pathname: string): boolean {
   return PUBLIC_ROUTES.some(
