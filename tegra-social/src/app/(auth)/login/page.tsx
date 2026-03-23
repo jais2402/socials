@@ -32,9 +32,8 @@ export default function LoginPage() {
     setLoading(false);
 
     if (signInError) {
-      setError(
-        signInError.message ?? "Something went wrong. Please try again."
-      );
+      const msg = signInError.message || signInError.code || "Something went wrong. Please try again.";
+      setError(msg);
       return;
     }
 
